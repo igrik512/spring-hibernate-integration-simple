@@ -1,9 +1,5 @@
 package com.bytestree.config;
 
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +10,11 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * 
@@ -77,9 +77,9 @@ public class HibernateConfig {
 	 * @return HibernateTransactionManager
 	 */
 	@Bean
-	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-		HibernateTransactionManager txManager = new HibernateTransactionManager();
-		txManager.setSessionFactory(sessionFactory);
+	public JpaTransactionManager transactionManager(SessionFactory sessionFactory) {
+		JpaTransactionManager  txManager = new JpaTransactionManager ();
+		txManager.setEntityManagerFactory();
 		return txManager;
 	}
 }

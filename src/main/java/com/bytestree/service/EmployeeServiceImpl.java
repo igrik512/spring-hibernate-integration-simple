@@ -1,12 +1,11 @@
 package com.bytestree.service;
 
+import com.bytestree.dao.EmployeeDaoImpl;
+import com.bytestree.model.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.bytestree.dao.EmployeeDao;
-import com.bytestree.model.Employee;
 
 /**
  * 
@@ -15,13 +14,13 @@ import com.bytestree.model.Employee;
  * 
  */
 @Service
-@Transactional(readOnly = true)
-public class EmployeeServiceImpl implements EmployeeService {
+@Transactional(readOnly = false)
+public class EmployeeServiceImpl {
 
 	final static Logger logger = Logger.getLogger(EmployeeServiceImpl.class);
 
 	@Autowired
-	EmployeeDao employeeDao;
+	EmployeeDaoImpl employeeDao;
 
 	public Employee getEmployee(Long id) {
 		logger.debug("Getting employee with id " + id);
@@ -34,8 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * @param employee:
 	 *            Employee to add
 	 */
-	@Override
-	@Transactional(readOnly = false)
+//	@Override
 	public void addNewEmployee(Employee employee) {
 		Long id = (Long) employeeDao.save(employee);
 		logger.debug("Id of new Employee " + id);

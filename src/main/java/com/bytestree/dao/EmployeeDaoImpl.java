@@ -1,13 +1,13 @@
 package com.bytestree.dao;
 
-import java.io.Serializable;
-
+import com.bytestree.model.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.bytestree.model.Employee;
+import java.io.Serializable;
 
 /**
  * 
@@ -16,7 +16,8 @@ import com.bytestree.model.Employee;
  * 
  */
 @Repository
-public class EmployeeDaoImpl implements EmployeeDao {
+@Transactional
+public class EmployeeDaoImpl /*implements EmployeeDao */{
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -25,12 +26,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return this.sessionFactory.getCurrentSession();
 	}
 	
-	@Override
+//	@Override
 	public Serializable save(Employee employee) {
 		return getSession().save(employee);
 	}
 	
-	@Override
+//	@Override
 	public Employee findById(final Serializable id) {
 		return getSession().get(Employee.class, id);
 	}
